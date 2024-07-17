@@ -13,4 +13,6 @@ int main()
     printf("%u %zu %zu", my_arr->type, my_arr->size, my_arr->length);
 
     libcds_array_destroy(my_arr);
+
+    return 0;
 }
