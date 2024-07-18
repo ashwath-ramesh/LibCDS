@@ -14,7 +14,8 @@ int main()
         return 1;
     }
 
-    printf("%u %zu %zu", my_arr->type, my_arr->size, my_arr->length);
+    printf("Successfully initialized array.\n");
+    printf("Array type: %u Array Size: %zu Array Length: %zu\n", my_arr->type, my_arr->size, my_arr->length);
 
     libcds_array_destroy(my_arr);
 
