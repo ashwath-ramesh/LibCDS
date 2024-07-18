@@ -1,3 +1,7 @@
+/*
+Program: examples/array_example.c
+*/
+
 #include <stdio.h>
 #include "libcds_array.h"
 

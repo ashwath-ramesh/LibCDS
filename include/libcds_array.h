@@ -1,3 +1,7 @@
+/*
+Program: include/libcds_array.h
+*/
+
 #ifndef LIBCDS_ARRAY_H
 #define LIBCDS_ARRAY_H
 
@@ -28,6 +32,9 @@ libcds_array_t *libcds_array_init(libcds_type_t type, size_t size);
 void libcds_array_destroy(libcds_array_t *arr);
 
 // Enum validation function
-bool libcds_is_valid_type(libcds_type_t type);
+bool _libcds_is_valid_type(libcds_type_t type);
+
+// Get type size function
+size_t _libcds_get_type_size(libcds_type_t type);
 
 #endif // LIBCDS_ARRAY_H
