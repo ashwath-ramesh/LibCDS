@@ -10,6 +10,7 @@ option(COMPILE_EXAMPLES "Compile examples" ON)
 
 set(EXE_NAME_ARRAY_EXAMPLE exe_array_example)
 set(LIB_NAME_LIBCDS_ARRAY lib_libcds_array)
+set(CMAKE_BUILD_TYPE Debug)
 
 add_subdirectory(src)
 add_subdirectory(include)
