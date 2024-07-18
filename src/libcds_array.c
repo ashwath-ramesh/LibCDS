@@ -67,6 +67,9 @@ int append(libcds_array_t *arr, libcds_type_t type, void *element)
     if (!_libcds_is_valid_type(type))
         return -2; // Invalid type
 
+    if (arr->type != type)
+        return -4; // Type mismatch
+
     if (arr->length >= arr->size)
         return -3; // No more space in the array
 
