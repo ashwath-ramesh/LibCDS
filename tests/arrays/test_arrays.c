@@ -47,7 +47,7 @@ int test_append_elements(libcds_array_t *arr, void *elements, size_t count, size
 {
     for (size_t i = 0; i < count; i++)
     {
-        int result = append(arr, arr->type, (char *)elements + i * element_size);
+        int result = libcds_array_append(arr, arr->type, (char *)elements + i * element_size);
         if (result != 0)
         {
             char message[100];
@@ -63,7 +63,7 @@ int test_append_elements(libcds_array_t *arr, void *elements, size_t count, size
 // Test overflow handling
 void test_overflow(libcds_array_t *arr, void *element)
 {
-    int result = append(arr, arr->type, element);
+    int result = libcds_array_append(arr, arr->type, element);
     if (result == -3)
     {
         log_message("INFO", "Correctly identified that the array is full.");
@@ -79,7 +79,7 @@ void test_overflow(libcds_array_t *arr, void *element)
 // Test type mismatch handling
 void test_type_mismatch(libcds_array_t *arr, int type, void *element)
 {
-    int result = append(arr, type, element);
+    int result = libcds_array_append(arr, type, element);
     if (result == -4)
     {
         log_message("INFO", "Correctly identified type mismatch for array.");

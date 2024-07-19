@@ -32,7 +32,7 @@ libcds_array_t *libcds_array_init(libcds_type_t type, size_t size);
 void libcds_array_destroy(libcds_array_t *arr);
 
 // Append an element to the array
-int append(libcds_array_t *arr, libcds_type_t type, void *element);
+int libcds_array_append(libcds_array_t *arr, libcds_type_t type, void *element);
 
 // Enum validation function
 bool _libcds_is_valid_type(libcds_type_t type);

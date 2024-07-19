@@ -90,7 +90,7 @@ void test_int_array()
 
     for (int i = 0; i < 10; i++)
     {
-        int result = append(int_arr, LIBCDS_TYPE_INT, &i);
+        int result = libcds_array_append(int_arr, LIBCDS_TYPE_INT, &i);
         if (result != 0)
         {
             printf("Failed to append element %d to the integer array. Error code: %d\n", i, result);
@@ -102,7 +102,7 @@ void test_int_array()
     display(int_arr);
 
     int overflow = 11;
-    int result = append(int_arr, LIBCDS_TYPE_INT, &overflow);
+    int result = libcds_array_append(int_arr, LIBCDS_TYPE_INT, &overflow);
     if (result == -3)
     {
         printf("Correctly identified that the integer array is full.\n");
@@ -128,7 +128,7 @@ void test_char_array()
     char chars[] = {'a', 'b', 'c', 'd', 'e'};
     for (int i = 0; i < 5; i++)
     {
-        int result = append(char_arr, LIBCDS_TYPE_CHAR, &chars[i]);
+        int result = libcds_array_append(char_arr, LIBCDS_TYPE_CHAR, &chars[i]);
         if (result != 0)
         {
             printf("Failed to append element %c to the character array. Error code: %d\n", chars[i], result);
@@ -140,7 +140,7 @@ void test_char_array()
     display(char_arr);
 
     int invalid = 42;
-    int result = append(char_arr, LIBCDS_TYPE_INT, &invalid);
+    int result = libcds_array_append(char_arr, LIBCDS_TYPE_INT, &invalid);
     if (result == -4)
     {
         printf("Correctly identified type mismatch for character array.\n");

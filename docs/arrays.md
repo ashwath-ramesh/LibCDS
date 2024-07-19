@@ -23,11 +23,17 @@
 | ----------------- | ------------------------------------------------- | --------------- | ---------------- |
 | libcds_array_init | Initializes an array with specified type and size | O(1)            | O(n)             |
 
+## Destroy
+
+| Function Name        | Description                       | Time Complexity | Space Complexity |
+| -------------------- | --------------------------------- | --------------- | ---------------- |
+| libcds_array_destroy | Destroys an array & frees up heap | O(1)            | O(n)             |
+
 ## Append
 
-| Function Name | Description                         | Time Complexity | Space Complexity |
-| ------------- | ----------------------------------- | --------------- | ---------------- |
-| Append        | Adds an element to the end of array | O(1)            | O(1)             |
+| Function Name       | Description                         | Time Complexity | Space Complexity |
+| ------------------- | ----------------------------------- | --------------- | ---------------- |
+| libcds_array_append | Adds an element to the end of array | O(1)            | O(1)             |
 
 ## Insert
 

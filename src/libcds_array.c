@@ -59,7 +59,7 @@ size_t _libcds_get_type_size(libcds_type_t type)
 }
 
 // Append an element to the array
-int append(libcds_array_t *arr, libcds_type_t type, void *element)
+int libcds_array_append(libcds_array_t *arr, libcds_type_t type, void *element)
 {
     if (!arr)
         return -1; // Invalid pointer

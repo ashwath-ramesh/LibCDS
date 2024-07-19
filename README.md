@@ -6,7 +6,7 @@ This is a (planned) library of simple and easy to use, data structures for the C
 
 | Category        | Data Structure                                | Operations                                                                                                          | Implemented |
 | --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Basic           | [Array](#docs/arrays.md)                      | Initialize, Append, Insert, Delete, Swap, Linear Search, Binary Search, Get, Set, Max, Min, Sum, Reverse1, Reverse2 | [ ]         |
+| Basic           | [Array](docs/arrays.md)                       | Initialize, Append, Insert, Delete, Swap, Linear Search, Binary Search, Get, Set, Max, Min, Sum, Reverse1, Reverse2 | [ ]         |
 | Basic           | 2D Array                                      | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
 | Basic           | Linked List                                   | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
 | Basic           | Circular Linked List                          | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
