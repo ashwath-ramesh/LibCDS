@@ -6,7 +6,7 @@ This is a (work-in-progress) library of simple and easy to use, data structures 
 
 | Category        | Data Structure                                | Operations                                                                                                          | Implemented |
 | --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------- |
-| Basic           | [Array](docs/arrays.md)                       | Initialize, Append, Insert, Delete, Swap, Linear Search, Binary Search, Get, Set, Max, Min, Sum, Reverse1, Reverse2 | [ ]         |
+| Basic           | [Array](docs/arrays.md)                       | Initialize, Append, Insert, Delete, Swap, Linear Search, Binary Search, Get, Set, Max, Min, Sum, Reverse1, Reverse2 | [WIP]       |
 | Basic           | 2D Array                                      | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
 | Basic           | Linked List                                   | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
 | Basic           | Circular Linked List                          | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
@@ -14,7 +14,7 @@ This is a (work-in-progress) library of simple and easy to use, data structures 
 | Basic           | Circular Doubly Linked List                   | Initialize, Insert, Delete, Search, Traverse                                                                        | [ ]         |
 | Stack and Queue | Stack (Array)                                 | Push, Pop, Peek, IsEmpty, IsFull                                                                                    | [ ]         |
 | Stack and Queue | Stack (Linked List)                           | Push, Pop, Peek, IsEmpty                                                                                            | [ ]         |
-| Stack and Queue | Queue (Array)                                 | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      | [ ]         |
+| Stack and Queue | [Queue (Array)](docs/queue.md)                | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      | [WIP]       |
 | Stack and Queue | Queue (Linked List)                           | Enqueue, Dequeue, Front, Rear, IsEmpty                                                                              | [ ]         |
 | Stack and Queue | Circular Queue                                | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      | [ ]         |
 | Stack and Queue | Double-ended Queue (Deque)                    | InsertFront, InsertRear, DeleteFront, DeleteRear, GetFront, GetRear, IsEmpty, IsFull                                | [ ]         |
