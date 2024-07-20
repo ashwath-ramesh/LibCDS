@@ -59,6 +59,37 @@ int queue_arr1p_enq(queue_arr1p_t *queue, libcds_type_t type, void *element)
     return 0;
 }
 
+// Dequeue
+int queue_arr1p_deq(queue_arr1p_t *queue)
+{
+    if (!queue)
+        return -1;
+
+    // Check that queue is not empty
+    if (queue_arr1p_isEmpty(queue))
+        return -2;
+
+    // Dequeue
+    size_t element_size = _get_type_size(queue->type);
+    for (int i = queue->rear; i >= -1; i--)
+    {
+        void *dest = (char *)queue->array + ((queue->rear - 1) * element_size);
+        void *src = (char *)queue->array + (queue->rear * element_size);
+        memcpy(dest, src, element_size);
+    }
+    queue->rear--;
+    return 0;
+}
+
+// Is Queue Empty?
+int queue_arr1p_isEmpty(queue_arr1p_t *queue)
+{
+    if (!queue)
+        return -1;
+
+    return (queue->rear == -1) ? 1 : 0;
+}
+
 // Is Queue Full?
 int queue_arr1p_isFull(queue_arr1p_t *queue)
 {

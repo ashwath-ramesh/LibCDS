@@ -40,6 +40,51 @@ int main()
         log_message("INFO", "Houston, we have a problem enque-ing!");
     }
 
+    element = 95;
+    if (queue_arr1p_enq(queue, LIBCDS_TYPE_INT, &element) == 0)
+    {
+        char message[100];
+        sprintf(message, "Element inserted! Value at rear: %d", *((int *)queue->array + (queue->rear)));
+        log_message("INFO", message);
+    }
+    else
+    {
+        log_message("INFO", "Houston, we have a problem enque-ing!");
+    }
+
+    // Dequeue
+    if (queue_arr1p_deq(queue) == 0)
+        log_message("INFO", "Element dequed");
+    else
+        log_message("INFO", "Houston, we have a problem deque-ing!");
+
+    // Check if queue is full
+    if (queue_arr1p_isEmpty(queue))
+        log_message("INFO", "Queue is Empty!");
+    else
+    {
+        char message[100];
+        sprintf(message, "Queue is not Empty! Value at rear: %d", *((int *)queue->array + (queue->rear)));
+        log_message("INFO", message);
+    }
+
+    // Dequeue
+    if (queue_arr1p_deq(queue) == 0)
+        log_message("INFO", "Element dequed");
+    else
+        log_message("INFO", "Houston, we have a problem deque-ing!");
+
+    // Check if queue is full
+    if (queue_arr1p_isEmpty(queue))
+        log_message("INFO", "Queue is Empty!");
+    else
+    {
+        log_message("INFO", "Queue is not Empty!");
+        char message[100];
+        sprintf(message, "Value at rear: %d", *((int *)queue->array + (queue->rear)));
+        log_message("INFO", message);
+    }
+
     // Destroy queue
     queue_arr1p_destroy(queue);
 

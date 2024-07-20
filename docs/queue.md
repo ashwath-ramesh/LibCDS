@@ -13,7 +13,16 @@
 | Ease of Implementation | Simple - Easy to implement using arrays                                                           | Moderate - Requires handling two pointers and linked list structures                                       | Moderate - Requires managing the circular nature                                                                 |
 | Examples               | - Docks<br>- Goods-to-man packing process<br>- Conveyor belt systems<br>- Loading/unloading docks | - Robotic picking systems<br>- Forklift routes in a warehouse<br>- Order picking by humans moving to items | - Circular conveyor belts<br>- Carousel storage systems<br>- Automated guided vehicles (AGVs) in a circular path |
 
-### Using 1 pointer
+### Queue - Implemented Using Array & 1 pointer
+
+| Function Name       | Description                                        | Time Complexity | Space Complexity |
+| ------------------- | -------------------------------------------------- | --------------- | ---------------- |
+| queue_arr1p_init    | Initializes the queue with specified type and size | O(1)            | O(n)             |
+| queue_arr1p_destroy | Destroys the queue, freeing allocated memory       | O(1)            | O(1)             |
+| queue_arr1p_enq     | Enqueues an element to the queue                   | O(1)            | O(1)             |
+| queue_arr1p_deq     | Dequeues an element from the queue                 | O(n)            | O(1)             |
+| queue_arr1p_isEmpty | Checks if the queue is empty                       | O(1)            | O(1)             |
+| queue_arr1p_isFull  | Checks if the queue is full                        | O(1)            | O(1)             |
 
 - rear pointer: intially at -1 (before index 0).
 - insertion: at rear. O(1)

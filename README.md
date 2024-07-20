@@ -14,7 +14,7 @@ This is a (work-in-progress) library of simple and easy to use, data structures 
 | Basic           | Circular Doubly Linked List                       | Initialize, Insert, Delete, Search, Traverse                                                                        |             |
 | Stack and Queue | Stack (Array)                                     | Push, Pop, Peek, IsEmpty, IsFull                                                                                    |             |
 | Stack and Queue | Stack (Linked List)                               | Push, Pop, Peek, IsEmpty                                                                                            |             |
-| Stack and Queue | [Queue (Array - Using 1 Pointer)](docs/queue.md)  | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      | WIP         |
+| Stack and Queue | [Queue (Array - Using 1 Pointer)](docs/queue.md)  | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      | Done        |
 | Stack and Queue | [Queue (Array - Using 2 Pointers)](docs/queue.md) | Enqueue, Dequeue, Front, Rear, IsEmpty                                                                              |             |
 | Stack and Queue | [Circular Queue](docs/queue.md)                   | Enqueue, Dequeue, Front, Rear, IsEmpty, IsFull                                                                      |             |
 | Stack and Queue | [Double-ended Queue (Deque)](docs/queue.md)       | InsertFront, InsertRear, DeleteFront, DeleteRear, GetFront, GetRear, IsEmpty, IsFull                                |             |
