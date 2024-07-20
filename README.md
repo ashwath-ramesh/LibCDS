@@ -1,8 +1,8 @@
 # LibCDS
 
-Data Structures Library - in C
+## Data Structures Library - in C
 
-This is a (planned) library of simple and easy to use, data structures for the C language.
+This is a (work-in-progress) library of simple and easy to use, data structures for the C language.
 
 | Category        | Data Structure                                | Operations                                                                                                          | Implemented |
 | --------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -43,3 +43,38 @@ This is a (planned) library of simple and easy to use, data structures for the C
 | Matrices        | Sparse Matrix (Array)                         | Initialize, Add, Multiply, Transpose                                                                                | [ ]         |
 | Matrices        | Sparse Matrix (Linked List)                   | Initialize, Add, Multiply, Transpose                                                                                | [ ]         |
 | Matrices        | Special Matrices (Diagonal, Triangular, etc.) | Initialize, Add, Multiply                                                                                           | [ ]         |
+
+## Prerequisites
+
+- C compiler (e.g., gcc, clang)
+- Make
+
+## Building and Running Tests
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/ashwath-ramesh/LibCDS.git
+   cd LibCDS
+   ```
+
+2. Build and run array tests:
+
+   ```
+   make build_test_arrays
+   make run_test_arrays
+   ```
+
+3. Build and run queue tests:
+   ```
+   make build_test_queues
+   make run_test_queues
+   ```
+
+## Using LibCDS in Your Project
+
+Work-in-progress
+
+## Motivation
+
+> _What I cannot create, I do not understand. - Richard Feynman_

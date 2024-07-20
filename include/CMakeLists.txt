@@ -1,1 +1,0 @@
-target_include_directories(${LIB_NAME_LIBCDS_ARRAY} PUBLIC "./")

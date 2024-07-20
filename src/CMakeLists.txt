@@ -1,1 +1,0 @@
-add_library(${LIB_NAME_LIBCDS_ARRAY} STATIC "libcds_array.c")
