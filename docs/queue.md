@@ -1,34 +1,17 @@
 # Queue
 
-- Queue
-- Ciruclar Queue
-- Priority Queue
-
-## Queue ADT
-
-- Space for storing elements
-- Front for deletion
-- Rear - for insertion
-
-## Queue operations
-
-- enqueue
-- dequeue
-- isEmpty
-- isFull
-- first
-- last
-- others: display, number of elements, etc
-
-## Implement using
-
-- Array
-- Linked List
-
-## Implementation using Array
-
-- Using 1 pointer
-- Using 2 pointers - front and rear
+| Criteria               | 1P Queue (1 Pointer Queue)                                                                        | 2P Queue (2 Pointers Queue)                                                                                | Circular Queue                                                                                                   |
+| ---------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Space Utilized         | Efficient (✓)                                                                                     | Less Efficient (X)                                                                                         | Efficient (✓)                                                                                                    |
+| Implemented With       | Arrays                                                                                            | Linked List                                                                                                | Arrays                                                                                                           |
+| Server Moves           | No (X)                                                                                            | Yes (✓)                                                                                                    | Yes (✓)                                                                                                          |
+| Baggage Moves          | Yes (✓)                                                                                           | No (X)                                                                                                     | No (X)                                                                                                           |
+| Space Complexity       | O(n) - Requires space proportional to the number of elements                                      | O(n) - Requires space proportional to the number of elements                                               | O(n) - Requires space proportional to the number of elements                                                     |
+| Time Complexity        |                                                                                                   |                                                                                                            |                                                                                                                  |
+| - Enqueue              | O(1) - Adding an element at the end is constant time                                              | O(1) - Adding an element is constant time with two pointers                                                | O(1) - Adding an element is constant time                                                                        |
+| - Dequeue              | O(1) - Removing an element from the front is constant time                                        | O(1) - Removing an element is constant time with two pointers                                              | O(1) - Removing an element is constant time                                                                      |
+| Ease of Implementation | Simple - Easy to implement using arrays                                                           | Moderate - Requires handling two pointers and linked list structures                                       | Moderate - Requires managing the circular nature                                                                 |
+| Examples               | - Docks<br>- Goods-to-man packing process<br>- Conveyor belt systems<br>- Loading/unloading docks | - Robotic picking systems<br>- Forklift routes in a warehouse<br>- Order picking by humans moving to items | - Circular conveyor belts<br>- Carousel storage systems<br>- Automated guided vehicles (AGVs) in a circular path |
 
 ### Using 1 pointer
 
