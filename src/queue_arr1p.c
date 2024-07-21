@@ -24,6 +24,7 @@ queue_arr1p_t *queue_arr1p_init(size_t size, size_t element_size)
     }
 
     queue->size = size;
+    queue->front = -1; // Initialized but unused in 1P implementation.
     queue->rear = -1;
     queue->element_size = element_size;
 

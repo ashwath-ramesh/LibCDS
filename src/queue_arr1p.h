@@ -21,7 +21,8 @@ typedef enum
 typedef struct queue_arr1p
 {
     void *array;
-    ssize_t rear;        // Rear index. `ssize_t` so that it can be used with `size`
+    ssize_t front;       // Front index.
+    ssize_t rear;        // Rear index. `ssize_t` so it can be used with `size`
     size_t size;         // Size of the array
     size_t element_size; // Size of user-defined elements
 } queue_arr1p_t;
