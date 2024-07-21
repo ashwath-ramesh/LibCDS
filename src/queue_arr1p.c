@@ -4,7 +4,7 @@ Program: ./src/queue_arr1p.c
 
 #include <string.h>
 #include <stdlib.h>
-#include "types.h"
+#include <stdbool.h>
 #include "queue_arr1p.h"
 
 // Initialise the queue

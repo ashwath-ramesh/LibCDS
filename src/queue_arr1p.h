@@ -7,7 +7,7 @@ Queue: Using Arrays & 1 pointer.
 #define QUEUE_ARR1P_H
 
 #include <stddef.h>
-#include "types.h"
+#include <stdbool.h>
 
 typedef enum
 {
@@ -18,7 +18,7 @@ typedef enum
     QUEUE_MEMORY_ALLOC_FAILED = -4,
 } queue_error_t;
 
-typedef struct libcds_queue_arr1p
+typedef struct queue_arr1p
 {
     void *array;
     ssize_t rear;        // Rear index. `ssize_t` so that it can be used with `size`
