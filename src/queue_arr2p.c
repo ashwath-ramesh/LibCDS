@@ -1,7 +1,8 @@
 /*
-Program: ./src/queue_arr1p.c
+Program: ./src/queue_arr2p.c
 */
 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -67,14 +68,7 @@ int queue_dequeue(queue_t *queue)
     if (queue_isEmpty(queue))
         return QUEUE_EMPTY;
 
-    // Dequeue
-    for (int i = 0; i < queue->rear; i++)
-    {
-        void *dest = (char *)queue->array + (i * queue->element_size);
-        void *src = (char *)queue->array + ((i + 1) * queue->element_size);
-        memcpy(dest, src, queue->element_size);
-    }
-    queue->rear--;
+    queue->front++;
     return QUEUE_SUCCESS;
 }
 
@@ -84,7 +78,12 @@ bool queue_isEmpty(queue_t *queue)
     if (!queue)
         return false;
 
-    return (queue->rear == -1) ? true : false;
+    if (queue->rear == -1)
+        return true;
+    else if (queue->front == queue->rear)
+        return true;
+
+    return false;
 }
 
 // Is Queue Full?
@@ -107,7 +106,8 @@ int queue_peek(queue_t *queue, void *element)
         return QUEUE_EMPTY;
 
     // Copy the value at the front of the queue into the provided element pointer (since we dont know types we cant direcly return via function return)
-    memcpy(element, queue->array, queue->element_size);
+    void *src = (char *)queue->array + ((queue->front + 1) * queue->element_size);
+    memcpy(element, src, queue->element_size);
 
     return QUEUE_SUCCESS;
 }
@@ -118,5 +118,15 @@ int queue_count_elements(queue_t *queue)
     if (!queue)
         return QUEUE_NULL_POINTER;
 
-    return queue->rear + 1;
+    if (queue->front > queue->rear)
+        return QUEUE_POINTER_ERR;
+
+    if (queue->front == -1)
+        return queue->rear + 1;
+    else if ((queue->front + 1) == (ssize_t)(queue->size))
+        return 0;
+    else if (queue->front < queue->rear)
+        return queue->rear - queue->front;
+    else
+        return 0;
 }
