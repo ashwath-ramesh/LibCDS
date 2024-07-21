@@ -1,8 +1,11 @@
 # LibCDS
 
-## Data Structures Library - in C
+Data structures library, implemented in Standard C.
+
+## Data Structures
 
 This is a (work-in-progress) library of simple and easy to use, data structures for the C language.
+No libraries used, except for the Standard C library.
 
 | Category    | Data Structure                                    | Operations                                                                                                          | Implemented | Interface | Implementation  |
 | ----------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------- | --------- | --------------- |
