@@ -8,24 +8,24 @@ Program: ./src/queue_arr1p.c
 #include "queue_arr1p.h"
 
 // Initialise the queue
-queue_arr1p_t *queue_arr1p_init(libcds_type_t type, size_t size)
+queue_arr1p_t *queue_arr1p_init(size_t size, size_t element_size)
 {
-    // Check type
-    if (!_is_valid_type(type))
-        return NULL; // Type invalid
-
     // Create a pointer to the queue in heap
     queue_arr1p_t *queue = calloc(1, sizeof(queue_arr1p_t));
     if (!queue)
         return NULL; // Memory alloc failed
 
     // Create the array of requested size that the queue pointer, points to.
-    queue->array = calloc(size, _get_type_size(type));
+    queue->array = calloc(size, element_size);
     if (!queue->array)
+    {
+        free(queue);
         return NULL;
+    }
 
     queue->size = size;
     queue->rear = -1;
+    queue->element_size = element_size;
 
     return queue;
 }
@@ -41,60 +41,81 @@ void queue_arr1p_destroy(queue_arr1p_t *queue)
 }
 
 // Enqueue
-int queue_arr1p_enq(queue_arr1p_t *queue, libcds_type_t type, void *element)
+int queue_arr1p_enq(queue_arr1p_t *queue, void *element)
 {
     if (!queue)
-        return -1;
+        return QUEUE_NULL_POINTER;
 
-    // Check if queue is full
     if (queue_arr1p_isFull(queue))
-        return -2;
+        return QUEUE_FULL;
 
-    // Enqueue
     queue->rear++;
-    size_t element_size = _get_type_size(type);
-    void *dest = (char *)queue->array + (queue->rear * element_size);
-    memcpy(dest, element, element_size);
+    void *dest = (char *)queue->array + (queue->rear * queue->element_size);
+    memcpy(dest, element, queue->element_size);
 
-    return 0;
+    return QUEUE_SUCCESS;
 }
 
 // Dequeue
 int queue_arr1p_deq(queue_arr1p_t *queue)
 {
     if (!queue)
-        return -1;
+        return QUEUE_NULL_POINTER;
 
     // Check that queue is not empty
     if (queue_arr1p_isEmpty(queue))
-        return -2;
+        return QUEUE_EMPTY;
 
     // Dequeue
-    size_t element_size = _get_type_size(queue->type);
-    for (int i = queue->rear; i >= -1; i--)
+    for (int i = 0; i < queue->rear; i++)
     {
-        void *dest = (char *)queue->array + ((queue->rear - 1) * element_size);
-        void *src = (char *)queue->array + (queue->rear * element_size);
-        memcpy(dest, src, element_size);
+        void *dest = (char *)queue->array + (i * queue->element_size);
+        void *src = (char *)queue->array + ((i + 1) * queue->element_size);
+        memcpy(dest, src, queue->element_size);
     }
     queue->rear--;
-    return 0;
+    return QUEUE_SUCCESS;
 }
 
 // Is Queue Empty?
-int queue_arr1p_isEmpty(queue_arr1p_t *queue)
+bool queue_arr1p_isEmpty(queue_arr1p_t *queue)
 {
     if (!queue)
-        return -1;
+        return false;
 
-    return (queue->rear == -1) ? 1 : 0;
+    return (queue->rear == -1) ? true : false;
 }
 
 // Is Queue Full?
-int queue_arr1p_isFull(queue_arr1p_t *queue)
+bool queue_arr1p_isFull(queue_arr1p_t *queue)
 {
     if (!queue)
-        return -1;
+        return false;
 
-    return (queue->rear == (queue->size - 1)) ? 1 : 0;
+    return (queue->rear == (ssize_t)(queue->size - 1)) ? true : false;
+}
+
+// Peek: Value at front
+int queue_arr1p_peek(queue_arr1p_t *queue, void *element)
+{
+    if (!queue)
+        return QUEUE_NULL_POINTER;
+
+    // Check that queue is not empty
+    if (queue_arr1p_isEmpty(queue))
+        return QUEUE_EMPTY;
+
+    // Copy the value at the front of the queue into the provided element pointer (since we dont know types we cant direcly return via function return)
+    memcpy(element, queue->array, queue->element_size);
+
+    return QUEUE_SUCCESS;
+}
+
+// Number of elements in the Queue
+int queue_arr1p_cnt_elements(queue_arr1p_t *queue)
+{
+    if (!queue)
+        return QUEUE_NULL_POINTER;
+
+    return queue->rear + 1;
 }

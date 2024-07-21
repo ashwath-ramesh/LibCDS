@@ -6,84 +6,85 @@ Program: /tests/queues/test_queues.c
 #include "../src/queue_arr1p.h"
 #include "logger.h"
 
+void log_queue_status(queue_arr1p_t *queue, const char *action)
+{
+    char message[100];
+    sprintf(message, "%s - Queue size: %zu, element_size: %zu, isFull: %d, isEmpty: %d", action, queue->size, queue->element_size, queue_arr1p_isFull(queue), queue_arr1p_isEmpty(queue));
+    log_message("INFO", message);
+}
+
+void enqueue_elements(queue_arr1p_t *queue, int *elements, int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (queue_arr1p_enq(queue, &elements[i]) == 0)
+        {
+            char message[100];
+            sprintf(message, "Element inserted! Value at rear: %d", *((int *)queue->array + queue->rear));
+            log_message("INFO", message);
+        }
+        else
+        {
+            log_message("ERROR", "Failed to enqueue element.");
+        }
+    }
+}
+
+void dequeue_elements(queue_arr1p_t *queue, int count)
+{
+    for (int i = 0; i < count; i++)
+    {
+        int front_element;
+        if (queue_arr1p_peek(queue, &front_element) == 0)
+        {
+            if (queue_arr1p_deq(queue) == 0)
+            {
+                char message[100];
+                if (queue_arr1p_isEmpty(queue))
+                {
+                    sprintf(message, "Element dequeued. Value at front: %d. Queue is now empty.", front_element);
+                }
+                else
+                {
+                    sprintf(message, "Element dequeued. Value at front: %d.", front_element);
+                }
+                log_message("INFO", message);
+            }
+            else
+            {
+                log_message("ERROR", "Failed to dequeue element.");
+            }
+        }
+        else
+        {
+            log_message("ERROR", "Failed to peek front element.");
+        }
+    }
+}
+
 int main()
 {
     // Test Initialization
-    queue_arr1p_t *queue = queue_arr1p_init(LIBCDS_TYPE_INT, 5);
+    queue_arr1p_t *queue = queue_arr1p_init(5, sizeof(int));
     if (!queue)
     {
         log_message("ERROR", "Failed to initialize array.");
+        return 1;
     }
     else
     {
-        char message[100];
-        sprintf(message, "Successfully initialized array. Type: %u, Size: %d", queue->type, queue->size);
-        log_message("INFO", message);
+        log_queue_status(queue, "Initialized array");
     }
 
-    // Check if queue is full
-    if (queue_arr1p_isFull(queue))
-        log_message("INFO", "Queue is full!");
-    else
-        log_message("INFO", "Queue is not full!");
+    // Enqueue elements
+    int elements[4] = {15, 25, 35, 45};
+    enqueue_elements(queue, elements, 4);
 
-    // Enqueue
-    int element = 85;
-    if (queue_arr1p_enq(queue, LIBCDS_TYPE_INT, &element) == 0)
-    {
-        char message[100];
-        sprintf(message, "Element inserted! Value at rear: %d", *((int *)queue->array + (queue->rear)));
-        log_message("INFO", message);
-    }
-    else
-    {
-        log_message("INFO", "Houston, we have a problem enque-ing!");
-    }
+    // Dequeue elements
+    dequeue_elements(queue, 4);
 
-    element = 95;
-    if (queue_arr1p_enq(queue, LIBCDS_TYPE_INT, &element) == 0)
-    {
-        char message[100];
-        sprintf(message, "Element inserted! Value at rear: %d", *((int *)queue->array + (queue->rear)));
-        log_message("INFO", message);
-    }
-    else
-    {
-        log_message("INFO", "Houston, we have a problem enque-ing!");
-    }
-
-    // Dequeue
-    if (queue_arr1p_deq(queue) == 0)
-        log_message("INFO", "Element dequed");
-    else
-        log_message("INFO", "Houston, we have a problem deque-ing!");
-
-    // Check if queue is full
-    if (queue_arr1p_isEmpty(queue))
-        log_message("INFO", "Queue is Empty!");
-    else
-    {
-        char message[100];
-        sprintf(message, "Queue is not Empty! Value at rear: %d", *((int *)queue->array + (queue->rear)));
-        log_message("INFO", message);
-    }
-
-    // Dequeue
-    if (queue_arr1p_deq(queue) == 0)
-        log_message("INFO", "Element dequed");
-    else
-        log_message("INFO", "Houston, we have a problem deque-ing!");
-
-    // Check if queue is full
-    if (queue_arr1p_isEmpty(queue))
-        log_message("INFO", "Queue is Empty!");
-    else
-    {
-        log_message("INFO", "Queue is not Empty!");
-        char message[100];
-        sprintf(message, "Value at rear: %d", *((int *)queue->array + (queue->rear)));
-        log_message("INFO", message);
-    }
+    // Final status check
+    log_queue_status(queue, "Final status");
 
     // Destroy queue
     queue_arr1p_destroy(queue);
