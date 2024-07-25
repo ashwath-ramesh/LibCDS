@@ -1,5 +1,7 @@
 # Queue
 
+**tl;dr: Use Circular queues. They are space efficient (they reuse the space in the array) and time efficient O(1).**
+
 | Criteria               | 1P Queue (1 Pointer Queue)                                                                        | 2P Queue (2 Pointers Queue)                                                                                | Circular Queue                                                                                                   |
 | ---------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Space Utilized         | Efficient (✓)                                                                                     | Less Efficient (X)                                                                                         | Efficient (✓)                                                                                                    |
@@ -69,7 +71,55 @@
 - Resetting pointers: if queue becomes empty (front & rear have same index), then reinitialize pointers to -1.
 - Circular queues
 
-## (3) Circular Queue - Implemented Using xxx
+# 3. Circular Queue - Array Implementation
+
+## 3.1 Prerequisite: Modulo Operation
+
+- Clock analogy: 12-hour clock face represents modulo 12 arithmetic
+- Modulo operation "wraps around" when reaching the divisor
+- Examples (modulo 12):
+  - 12 % 12 = 0
+  - 3 % 12 = 3
+  - 14 % 12 = 2
+  - 25 % 12 = 1
+- Pattern: For n and positive divisor d, n % d results in [0, d-1]
+
+## 3.2 Circular Queue Abstract Data Type
+
+### 3.2.1 Components
+
+- Pointer to array
+- Array size
+- Front pointer
+- Rear pointer
+- Queue length
+
+### 3.2.2 Key Concepts
+
+1. Initialization: Front and rear pointers start at index 0
+2. Capacity:
+   - Max elements: N-1 (for array size N)
+   - Full when containing N-1 elements
+   - Front pointer always points to empty position
+   - Front and rear pointers coincide only when empty
+3. Distinguishes between full and empty states
+
+### 3.2.3 Operations
+
+1. Enqueue (while not full):
+   - Move rear: `r = (r + 1) % size`
+   - Insert at new rear index
+2. Dequeue (while not empty):
+   - Move front: `f = (f + 1) % size`
+3. Check Empty:
+   - Empty `if front == rear`
+4. Check Full:
+   - Full `if (r + 1) % size == front`
+
+### 3.2.4 Implementation Notes
+
+- Use modulo for pointer wraparound
+- Visualize as clock face for wraparound behavior
 
 ## (4) Double Ended Queue - Implemented Using xxx
 
