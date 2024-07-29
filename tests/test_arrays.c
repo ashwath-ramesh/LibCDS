@@ -2,177 +2,150 @@
 Program: /tests/arrays/test_arrays.c
 */
 
-#include <stdio.h>
 #include "../src/array.h"
+#include "logger.h"
+#include <assert.h>
+#include <stdio.h>
 
-// Logging function for structured output
-void log_message(const char *level, const char *message)
-{
-    printf("[%s] %s\n", level, message);
-}
+void log_array_status(array_t *arr, const char *action) {
+  char message[100];
+  sprintf(message, "%s - Array size: %zu, length: %zu, element_size: %zu",
+          action, arr->size, arr->length, arr->element_size);
+  log_message("INFO", message);
 
-// Display function
-void display(array_t *arr)
-{
-    printf("\nElements of array are:\n");
-    for (size_t i = 0; i < arr->length; i++)
-    {
-        if (arr->type == LIBCDS_TYPE_INT)
-        {
-            printf("%d ", ((int *)arr->A)[i]);
-        }
-        else if (arr->type == LIBCDS_TYPE_CHAR)
-        {
-            printf("%c ", ((char *)arr->A)[i]);
-        }
+  printf("Elements in the array: ");
+  for (size_t i = 0; i < arr->length; i++) {
+    switch (arr->element_size) {
+    case sizeof(char):
+      printf("'%c' ", *((char *)arr->A + i));
+      break;
+    case sizeof(int):
+      printf("%d ", *((int *)arr->A + i));
+      break;
+    case sizeof(double):
+      printf("%.2f ", *((double *)arr->A + i));
+      break;
+    default:
+      printf("0x");
+      for (size_t j = 0; j < arr->element_size; j++) {
+        printf("%02X", *((unsigned char *)arr->A + i * arr->element_size + j));
+      }
+      printf(" ");
     }
-    printf("\n");
+  }
+  printf("\n");
 }
 
-// Test initialization
-array_t *test_init_array(int type, size_t size)
-{
-    array_t *arr = array_init(type, size);
-    if (!arr)
-    {
-        log_message("ERROR", "Failed to initialize array.");
-    }
-    else
-    {
-        char message[100];
-        sprintf(message, "Successfully initialized array. Type: %u, Size: %zu, Length: %zu", arr->type, arr->size, arr->length);
-        log_message("INFO", message);
-    }
-    return arr;
+void test_array_init() {
+  printf("\n--- Test Case 1: Array Initialization ---\n");
+  array_t *arr = array_init(5, sizeof(int));
+  assert(arr != NULL);
+  assert(arr->size == 5);
+  assert(arr->length == 0);
+  assert(arr->element_size == sizeof(int));
+  log_array_status(arr, "After initialization");
+  array_destroy(arr);
+
+  // Test with different element size
+  arr = array_init(3, sizeof(double));
+  assert(arr != NULL);
+  assert(arr->size == 3);
+  assert(arr->length == 0);
+  assert(arr->element_size == sizeof(double));
+  log_message("INFO", "Initialization with double elements successful");
+  array_destroy(arr);
 }
 
-// Test appending elements
-int test_append_elements(array_t *arr, void *elements, size_t count, size_t element_size)
-{
-    for (size_t i = 0; i < count; i++)
-    {
-        int result = array_append(arr, arr->type, (char *)elements + i * element_size);
-        if (result != 0)
-        {
-            char message[100];
-            sprintf(message, "Failed to append element at index %zu. Error code: %d", i, result);
-            log_message("ERROR", message);
-            return result;
-        }
-    }
-    log_message("INFO", "Successfully appended elements to the array.");
-    return 0;
+void test_array_append() {
+  printf("\n--- Test Case 2: Array Append ---\n");
+  array_t *arr = array_init(3, sizeof(int));
+  assert(arr != NULL);
+
+  int elements[] = {10, 20, 30, 40};
+
+  // Append elements
+  for (int i = 0; i < 3; i++) {
+    assert(array_append(arr, &elements[i]) == 0);
+    log_array_status(arr, "After appending");
+  }
+
+  // Try to append when full
+  assert(array_append(arr, &elements[3]) == ARRAY_ERROR_FULL);
+  log_array_status(arr, "After trying to append to full array");
+
+  array_destroy(arr);
 }
 
-// Test overflow handling
-void test_overflow(array_t *arr, void *element)
-{
-    int result = array_append(arr, arr->type, element);
-    if (result == -3)
-    {
-        log_message("INFO", "Correctly identified that the array is full.");
-    }
-    else
-    {
-        char message[100];
-        sprintf(message, "Error: Expected -3 but got %d", result);
-        log_message("ERROR", message);
-    }
+void test_array_insert() {
+  printf("\n--- Test Case 3: Array Insert ---\n");
+  array_t *arr = array_init(5, sizeof(char));
+  assert(arr != NULL);
+
+  char elements[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+
+  // Insert elements
+  assert(array_insert(arr, 0, &elements[0]) == 0); // Insert 'A' at index 0
+  log_array_status(arr, "After inserting 'A' at index 0");
+
+  assert(array_insert(arr, 1, &elements[1]) == 0); // Insert 'B' at index 1
+  log_array_status(arr, "After inserting 'B' at index 1");
+
+  assert(array_insert(arr, 1, &elements[2]) == 0); // Insert 'C' at index 1
+  log_array_status(arr, "After inserting 'C' at index 1");
+
+  assert(array_insert(arr, 3, &elements[3]) == 0); // Insert 'D' at index 3
+  log_array_status(arr, "After inserting 'D' at index 3");
+
+  // Try to insert at invalid index
+  assert(array_insert(arr, 10, &elements[4]) ==
+         ARRAY_ERROR_INDEX_OUT_OF_BOUNDS);
+  log_array_status(arr, "After trying to insert at invalid index");
+
+  // Try to insert when full
+  assert(array_insert(arr, 2, &elements[4]) == 0); // Insert 'E' at index 2
+  log_array_status(arr, "After inserting 'E' at index 2");
+
+  assert(array_insert(arr, 0, &elements[5]) == ARRAY_ERROR_FULL);
+  log_array_status(arr, "After trying to insert when full");
+
+  array_destroy(arr);
 }
 
-// Test type mismatch handling
-void test_type_mismatch(array_t *arr, int type, void *element)
-{
-    int result = array_append(arr, type, element);
-    if (result == -4)
-    {
-        log_message("INFO", "Correctly identified type mismatch for array.");
-    }
-    else
-    {
-        char message[100];
-        sprintf(message, "Error: Expected -4 but got %d", result);
-        log_message("ERROR", message);
-    }
+void test_edge_cases() {
+  printf("\n--- Test Case 4: Edge Cases ---\n");
+
+  // Test with size 0
+  array_t *arr = array_init(0, sizeof(int));
+  assert(arr != NULL);
+  assert(arr->size == 0);
+  assert(arr->length == 0);
+  log_array_status(arr, "Array with size 0");
+
+  int element = 10;
+  assert(array_append(arr, &element) == ARRAY_ERROR_FULL);
+  log_array_status(arr, "After trying to append to size 0 array");
+
+  array_destroy(arr);
+
+  // Test with NULL array
+  int dummy = 0;
+  assert(array_append(NULL, &dummy) == ARRAY_ERROR_INVALID_POINTER);
+  assert(array_insert(NULL, 0, &dummy) == ARRAY_ERROR_INVALID_POINTER);
+  log_message("INFO", "NULL array checks passed");
+
+  // Test with very large element size
+  arr = array_init(1, 1024 * 1024); // 1 MB element size
+  assert(arr != NULL);
+  log_message("INFO", "Initialization with very large element size successful");
+  array_destroy(arr);
 }
 
-// Test integer array initialization
-array_t *test_int_array_init()
-{
-    return test_init_array(LIBCDS_TYPE_INT, 10);
-}
+int main() {
+  test_array_init();
+  test_array_append();
+  test_array_insert();
+  test_edge_cases();
 
-// Test integer array appending
-void test_int_array_append(array_t *int_arr)
-{
-    int elements[10];
-    for (int i = 0; i < 10; i++)
-        elements[i] = i;
-    if (test_append_elements(int_arr, elements, 10, sizeof(int)) != 0)
-        return;
-    display(int_arr);
-}
-
-// Test integer array overflow
-void test_int_array_overflow(array_t *int_arr)
-{
-    int overflow = 11;
-    test_overflow(int_arr, &overflow);
-}
-
-// Test character array initialization
-array_t *test_char_array_init()
-{
-    return test_init_array(LIBCDS_TYPE_CHAR, 5);
-}
-
-// Test character array appending
-void test_char_array_append(array_t *char_arr)
-{
-    char elements[] = {'a', 'b', 'c', 'd', 'e'};
-    if (test_append_elements(char_arr, elements, 5, sizeof(char)) != 0)
-        return;
-    display(char_arr);
-}
-
-// Test character array type mismatch
-void test_char_array_type_mismatch(array_t *char_arr)
-{
-    int invalid = 42;
-    test_type_mismatch(char_arr, LIBCDS_TYPE_INT, &invalid);
-}
-
-// Test integer array
-void test_int_array()
-{
-    array_t *int_arr = test_int_array_init();
-    if (!int_arr)
-        return;
-    test_int_array_append(int_arr);
-    test_int_array_overflow(int_arr);
-    array_destroy(int_arr);
-}
-
-// Test character array
-void test_char_array()
-{
-    array_t *char_arr = test_char_array_init();
-    if (!char_arr)
-        return;
-    test_char_array_append(char_arr);
-    test_char_array_type_mismatch(char_arr);
-    array_destroy(char_arr);
-}
-
-int main()
-{
-    log_message("INFO", "---Starting integer array tests...");
-    test_int_array();
-    log_message("INFO", "Finished integer array tests.");
-
-    log_message("INFO", "---Starting character array tests...");
-    test_char_array();
-    log_message("INFO", "Finished character array tests.");
-
-    return 0;
+  printf("\nAll tests completed successfully!\n");
+  return 0;
 }

@@ -2,6 +2,17 @@
 
 **tl;dr: Use Circular queues. They are space efficient (they reuse the space in the array) and time efficient O(1).**
 
+## Table of contents
+
+1. Queue - Implemented Using Array & 1 pointer
+2. Queue - Implemented Using Array & 2 pointers
+3. Circular Queue - Implementated using Arrays
+4. Doubly Ended Queues (DEQueue) - Implemented using Arrays
+5. Priority Queues (Fixed number of priorities) - Implemented using Arrays
+6. Priority Queues (Infinite priorities) - Implemented using Arrays
+
+## Summary
+
 | Criteria               | 1P Queue (1 Pointer Queue)                                                                        | 2P Queue (2 Pointers Queue)                                                                                | Circular Queue                                                                                                   |
 | ---------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | Space Utilized         | Efficient (✓)                                                                                     | Less Efficient (X)                                                                                         | Efficient (✓)                                                                                                    |
@@ -15,7 +26,7 @@
 | Ease of Implementation | Simple - Easy to implement using arrays                                                           | Moderate - Requires handling two pointers and linked list structures                                       | Moderate - Requires managing the circular nature                                                                 |
 | Examples               | - Docks<br>- Goods-to-man packing process<br>- Conveyor belt systems<br>- Loading/unloading docks | - Robotic picking systems<br>- Forklift routes in a warehouse<br>- Order picking by humans moving to items | - Circular conveyor belts<br>- Carousel storage systems<br>- Automated guided vehicles (AGVs) in a circular path |
 
-## (1) Queue - Implemented Using Array & 1 pointer
+## 1. Queue - Implemented Using Array & 1 pointer
 
 - Interface: `queue.h`
 - Program: `queue_arr_1p.c`
@@ -37,7 +48,7 @@
 - insertion: at rear. O(1)
 - deletion: remove first element. Move all elements to front. O(n)
 
-## (2) Queue - Implemented Using Array & 2 pointers
+## 2. Queue - Implemented Using Array & 2 pointers
 
 - Interface: `queue.h`
 - Program: `queue_arr_2p.c`
@@ -71,7 +82,7 @@
 - Resetting pointers: if queue becomes empty (front & rear have same index), then reinitialize pointers to -1.
 - Circular queues
 
-# 3. Circular Queue - Array Implementation
+# 3. Circular Queue - Implementated using Arrays
 
 ## 3.1 Prerequisite: Modulo Operation
 
